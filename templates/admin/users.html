@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Admin - Users
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='confirmDeleteHandler.js') }}" defer></script>
+<script src="{{ url_for('static', filename='formHandler.js') }}" defer></script>
+
+<div class="container">
+    <!--confirm-modal: Remove admin-->
+    {% with modal_id='confirm-del-modal', modal_header='Remove user admin', modal_description='Are you sure? This will remove the users admin privileges!', modal_confirm_button='confirm-button' %}
+    {% include 'confirm-modal.html' %}
+    {% endwith %}
+
+    <div class="row justify-content-center">
+        <!-- Allows administrators to add new admins from users who have registered accounts on the website. -->
+        <div class="col-12 col-lg-4">
+            <h3>Add New Admin</h3>
+            <form method="post" action="/admin-users/add" style="padding: 0px;" novalidate>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="email" id="email" name="username" placeholder="Email"
+                        autocomplete="off" autofocus required>
+                    <label class="form-label" for="email">Email</label>
+                    <div class="invalid-feedback">Email is required.</div>
+                </div>
+                <button type="submit" class="order-button" style="background-color:#6495ED; padding: 6px 10px;">Add
+                    Admin</button>
+            </form>
+        </div>
+
+        <!-- List of current admins, allows administrators to remove other administrators.  -->
+        <div class="col-12 col-lg-6 mt-lg-0 costum-mt-5 align-items-center">
+            <h3>Current Admins</h3>
+            <div class="list-container overflow-auto" style="max-height: 400px;">
+                <ul class="list-group" style="max-height: 500px; overflow-y: auto;">
+                    {% for admin in admins %}
+                    {% if admin.id == session["user_id"] %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="opacity: 0.75">
+                        {% else %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% endif %}
+                        <div class="truncate-text" style="max-width: 133px;">
+                            {{ admin.username }}
+                        </div>
+                        <div class="ms-auto">
+                            <form id="form-delete-{{admin.id}}" method="post" action="admin-users/delete/{{ admin.id }}"
+                                class="ms-2 form-button">
+                                {% if admin.id == session["user_id"] %}
+                                <button class="btn btn-danger btn-sm" type="button" disabled>
+                                    {% else %}
+                                    <button class="btn btn-danger btn-sm" type="button"
+                                        onClick="confirmDelete({{admin.id}})">
+                                        {% endif %}
+                                        <i class="bi bi-trash-fill"></i> Remove
+                                    </button>
+                            </form>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

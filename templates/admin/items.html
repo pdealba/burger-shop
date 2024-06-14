@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Admin - Items
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='confirmDeleteHandler.js') }}" defer></script>
+<script src="{{ url_for('static', filename='categoryHandler.js') }}" defer></script>
+
+<div class="container mb-5">
+    <!--confirm-modal: item deletion-->
+    {% with modal_id='confirm-del-modal', modal_header='Delete Item', modal_description='Are you sure? This item will be deleted permanently!', modal_confirm_button='confirm-button' %}
+    {% include 'confirm-modal.html' %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col mb-4 text-center">
+            <h1>Add, edit or delete items</h1>
+        </div>
+    </div>
+
+    <!--Category selector-->
+    <div class="col-12 col-sm-6 mb-4 mx-auto">
+        <label for="category-filter" class="text-description">Filter Items by Category:</label>
+        <select id="category-filter" class="form-select" aria-label="Select category">
+            <option value="all">Show All</option>
+            {% for category in categories %}
+            <option value="{{ category.category }}">{{ category.category }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!--Menu Items-->
+    <div class="row mb-5">
+        {% for item in menu %}
+        <div class="col-5 mx-auto rounded text-center col-container col-menu-item" style="height: 26rem;"
+            data-category="{{item.category}}">
+            <a href="{{ url_for('burger_detail', burger_id=item.id) }}">
+                <h2 class="mt-2">{{item.name}}</h2>
+                <img src={{item.image_url}}>
+                <div class="text-description" style="color:#6f6f6f;"> ${{item.price}} </div>
+                <div class="text-description" style="color:#6f6f6f;"> {{item.category}} </div>
+            </a>
+            <div class="">
+                <a href="/admin-items/edit/{{item.id}}"><button type="submit" class="btn btn-outline-secondary"><i
+                            class="bi bi-pencil"></i> Edit</button></a>
+                <form id="form-delete-{{item.id}}" class="d-inline" action="/admin-items/delete/{{item.id}}"
+                    method="post">
+                    <button type="button" onClick="confirmDelete( {{item.id}} )" class="btn btn-outline-danger"><i
+                            class="bi bi-trash-fill"></i>Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="col-5 mx-auto text-center col-container add-item-box" style=" height: 26rem; width: 30rem;">
+            <a href="/admin-items/add">
+                <i class="bi bi-plus-lg plus-icon"></i>
+                <p style="color: #6c757d;">Add Item</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

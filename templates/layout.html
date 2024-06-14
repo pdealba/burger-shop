@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+        <!--Icon taken from: https://www.flaticon.com/free-icon/burger_5787016-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='uploads/favicon.ico') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='alert.js') }}" defer></script>
+        <title>{% block title %}My Website{% endblock %}</title>
+    </head>
+
+    <body>
+        <!--Bootstrap NavBar-->
+        <nav class="navbar navbar-expand-md">
+            <div class="container">
+                <a href="{{ url_for('index') }}" class="navbar-brand">
+                    <img src="{{ url_for('static', filename='uploads/burger-logo.png') }}" width=50>
+                </a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
+                    aria-label="Expand Navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="nav">
+                    <ul class="navbar-nav me-auto mt-2 my-navbar-ul">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('menu') }}">MENU</a>
+                        </li>
+                        {% if is_admin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('admin_items') }}">Admin items</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('admin_users') }}">Admin users</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% if session["user_id"] %}
+                    <ul class="navbar-nav ms-auto mt-2 my-navbar-ul">
+                        <li class="nav-item">
+                            <a class="nav-link rounded cart-icon-container" href="/order">
+                                <i class="bi bi-cart4"></i>
+                                <span class="badge" id="order-number">{{order_number}}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                    {% else %}
+                    <ul class="navbar-nav ms-auto mt-2 my-navbar-ul">
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+
+            </div>
+        </nav>
+
+        {% block content %}{% endblock %}
+
+        <!--Footer inspired by / Logos taken from: https://bigpons.com.ar-->
+        <!--Footer for PC-->
+        <footer id=footer-pc>
+            <div class="footer-line">
+                <img src="{{ url_for('static', filename='uploads/burger-logo.png') }}" alt="Burger Logo" height=100px
+                    style="transform: translateY(-50px);">
+            </div>
+            <div class="container" style="height: 120px;">
+                <div class="row align-items-center">
+                    <div class="col mt-5 text-center">
+                        <img src="https://bigpons.com.ar/bigpons/Home/mail_logo.png" alt="Email logo" height=28px;>
+                        <div class="text-description footer-text mt-2">info@burgerShop.com</div>
+                    </div>
+
+                    <div class="col mt-5 text-center">
+                        <a href="https://www.instagram.com/"><img src="https://bigpons.com.ar/bigpons/Home/ig_logo.png"
+                                alt="Instagram logo" height=28px;></a>
+                        <div class="text-description footer-text mt-2">@burger.shop</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!--Footer for Mobile-->
+        <footer id="footer-mobile">
+            <div class="container" style="height: 75px;">
+                <div class="row align-items-center">
+                    <div class="col mt-5 text-center">
+                        <img src="https://bigpons.com.ar/bigpons/Home/mail_logo.png" alt="Email logo" height=28px;>
+                    </div>
+
+                    <div class="col mt-5 text-center">
+                        <a href="https://www.instagram.com/"><img src="https://bigpons.com.ar/bigpons/Home/ig_logo.png"
+                                alt="Instagram logo" height=28px;></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

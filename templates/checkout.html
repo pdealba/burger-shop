@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Checkout
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='formHandler.js') }}" defer></script>
+
+<style>
+    .row>* {
+        padding: 5px;
+    }
+</style>
+
+<!--Note: Used col classes instead of input-group classes as it would not translate well to mobile devices-->
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-12 col-xl-7 col-checkout-item rounded p-2">
+            <h3 class="text-center" style="margin: 10px;">Billing Information</h3>
+            <form method="post" action="/order-successful" novalidate style="padding:0px">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input class="form-control" type="text" id="name" name="name" placeholder="First Name"
+                                required>
+                            <label class="form-label" for="name">First Name</label>
+                            <div class="invalid-feedback">First name is required.</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input class="form-control" type="text" id="surname" name="surname" placeholder="Last Name"
+                                required>
+                            <label class="form-label" for="surname">Last Name</label>
+                            <div class="invalid-feedback">Last name is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input class="form-control" type="text" id="address" name="address"
+                                placeholder="Street Address" required>
+                            <label class="form-label" for="address">Street Address</label>
+                            <div class="invalid-feedback">Street Address is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-floating">
+                            <input class="form-control" type="text" id="city" name="city" placeholder="City" required>
+                            <label class="form-label" for="city">City</label>
+                            <div class="invalid-feedback">City is required.</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="form-floating">
+                            <select class="form-select" id="state" name="state" aria-label="State" required>
+                                <option value="" selected disabled>Select a State</option>
+                                {% for state in states %}
+                                <option value="{{state}}">{{state}}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="form-label" for="state">State</label>
+                            <div class="invalid-feedback">State is required.</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="form-floating">
+                            <input class="form-control" type="number" id="zip-code" name="zip-code"
+                                placeholder="Zip Code" required>
+                            <label class="form-label" for="zip-code">Zip code</label>
+                            <div class="invalid-feedback">Zip code is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating">
+                            <select class="form-select" id="payment-method" name="payment-method"
+                                aria-label="Payment method" required>
+                                <option value="" selected disabled>Select a payment method</option>
+                                <option value="mastercard"> MasterCard</option>
+                                <option value="visa"> Visa</option>
+                                <option value="amex"> American Express</option>
+                            </select>
+                            <label class="form-label" for="payment-method">Payment method</label>
+                            <div class="invalid-feedback">Payment method is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input class="form-control" type="number" id="card-number" name="card-number"
+                                placeholder="Card Number" maxlength="16" required>
+                            <label class="form-label" for="card-number">Card number</label>
+                            <div class="invalid-feedback">Card number is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <div class="form-floating">
+                            <select class="form-select" id="month" name="month" aria-label="Month" required>
+                                <option value="" selected disabled>--</option>
+                                {% for i in range(1, 13) %}
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="form-label" for="month">Month</label>
+                            <div class="invalid-feedback">Expiration month is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4">
+                        <div class="form-floating">
+                            <select class="form-select" id="year" name="year" aria-label="Year" required>
+                                <option value="" selected disabled>----</option>
+                                <!--Shows curent year until 26 years from now-->
+                                <!--Inspired by https://checkout.steampowered.com/checkout/-->
+                                {% for i in range (current_year, current_year + 26)%}
+                                <option value={{i}}>{{i}}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="form-label" for="year">Year</label>
+                            <div class="invalid-feedback">Expiration year is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="form-floating">
+                            <input class="form-control" type="number" id="security-code" name="security-code"
+                                placeholder="Security Code" required>
+                            <label class="form-label" for="security-code">Security Code</label>
+                            <div class="invalid-feedback">Card security code is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="button-container" class='row'>
+                    <div class='col'>
+                        <button type="submit" class="order-button" style="background-color:#6495ED;">Complete
+                            order</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="order-summary" class="col col-xl-6 p-2 col-order-item rounded d-flex flex-column overflow-auto">
+            <h3 class="text-center" style="margin:10px;">Order Summary</h3>
+            <ul class="list-group flex-grow-1">
+                {% for order in orders %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <img src="{{order.image_url}}" alt="{{order.name}}" class="img-thumbnail"
+                                style="max-width: 50px;">
+                            <div class="truncate-text">
+                                <span class="ms-2">{{order.name}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            x {{order.amount}}
+                        </div>
+                        <div>
+                            ${{order.price}}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <b class="text-end mt-auto">Total: ${{total}}</b>
+        </div>
+    </div>
+</div>
+{% endblock %}

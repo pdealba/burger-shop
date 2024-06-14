@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+/* Navbar Styles */
+.navbar {
+    background: white;
+    margin-bottom: 40px;
+}
+
+.my-navbar-ul {
+    font-family: 'Bungee Spice', sans-serif;
+    font-size: 16px;
+    margin-bottom: 14px;
+}
+
+.nav-link {
+    color: inherit;
+}
+
+#hamburger-icon {
+    color: #B22222;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 9px;
+}
+
+/* Heading Styles */
+h1,
+h2,
+h3 {
+    font-family: 'Bungee Spice', sans-serif;
+}
+
+/* Body Styles */
+body {
+    background-color: #f2f2f2;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-description {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    margin: 10px 0;
+    color: black;
+}
+
+/* Container Styles */
+.col-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+.col-container:hover {
+    transform: scale(1.05);
+}
+
+/* Button Styles */
+.order-button {
+    font-family: 'Lato', sans-serif;
+    background-color: #FFA500;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.order-button:hover,
+.order-button:active {
+    opacity: 0.85;
+}
+
+/* Menu Item Styles */
+.col-menu-item {
+    background-color: white;
+    margin-bottom: 30px;
+    height: 20rem;
+    width: 30rem;
+}
+
+.col-menu-item img {
+    width: 300px;
+}
+
+/* Row Styles */
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Cart Items Styles */
+#cartItems li {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #6f6f6f;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Total Price Styles */
+#totalPrice {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #6f6f6f;
+}
+
+/* Footer Styles */
+/* footer inspired by: https://bigpons.com.ar/burgers*/
+footer {
+    background-color: #1D1D1C;
+    position: relative;
+    margin-top: auto;
+}
+
+.footer-line {
+    background-color: #FCBF02;
+    height: 7px;
+    width: 100%;
+    text-align: center;
+}
+
+.footer-text {
+    color: #fff;
+    font-size: 16px;
+}
+
+#footer-pc {
+    display: block;
+}
+
+#footer-mobile {
+    display: none;
+}
+
+/* Checkout Item Styles */
+.col-checkout-item {
+    background-color: white;
+    margin-right: 10px;
+    height: auto;
+}
+
+/* Order Item Styles */
+.col-order-item {
+    background-color: white;
+    margin-bottom: 30px;
+    height: auto;
+    width: 400px;
+}
+
+/* Form Styles */
+form {
+    margin: auto;
+    padding: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.form-floating {
+    margin-bottom: 15px;
+}
+
+/* Cart Icon Styles */
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    height: 30px;
+    width: 60px;
+}
+
+.badge {
+    font-family: 'Lato', sans-serif;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+/* Order Item Styles */
+.product-image {
+    width: 80px;
+    height: auto;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-name {
+    font-size: 16px;
+}
+
+.item-price {
+    font-size: 18px;
+    color: #555555;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity {
+    font-size: 18px;
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.form-button {
+    padding: 0px;
+}
+
+#order-buttons-container {
+    margin-top: 20px;
+}
+
+.mt-5 {
+    margin-top: 2rem !important;
+}
+
+.costum-mt-5 {
+    margin-top: 2rem;
+}
+
+/* Admin Add Button Styles */
+.add-item-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #6c757d;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.plus-icon {
+    font-size: 3em;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.truncate-text {
+    max-width: 95px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Order Summary Styles */
+#order-summary {
+    height: 450px;
+    max-height: 450px;
+}
+
+#button-container {
+    text-align: left;
+}
+
+.align-form-title {
+    margin-left: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #order-summary {
+        margin-top: 1rem;
+        height: auto;
+    }
+
+    #button-container {
+        text-align: center;
+    }
+
+    .order-button {
+        width: 100%;
+    }
+
+    form {
+        margin: auto;
+        padding: 10px;
+    }
+
+    .align-form-title {
+        margin-left: 10px;
+    }
+
+    .row>* {
+        padding: 0;
+    }
+
+    #footer-mobile {
+        display: block;
+    }
+
+    #footer-pc {
+        display: none;
+    }
+}
+
+/* Video Background Styles */
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}

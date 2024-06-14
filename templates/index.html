@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+
+    body {
+        margin: 0;
+        overflow: hidden;
+    }
+
+    footer {
+        display:none !important;
+    }
+
+</style>
+
+<div class="container">
+    <video autoplay muted loop>
+        <!--Video of 'hzsphoto', taken from: https://www.youtube.com/watch?v=VQmT5h7m3q4&ab_channel=hzsphoto-->
+        <source src="{{ url_for('static', filename='uploads/background-video.mp4')}}" type="video/mp4">
+        Browser does not support video tag.
+    </video>
+</div>
+{% endblock %}

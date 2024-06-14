@@ -1,0 +1,19 @@
+<!--Jinja confirm-modal template for confirming user action (Emptying order, deleting items, etc)-->
+<!--Used in in order.html, items.html and users.html-->
+<div class="modal fade" id="{{modal_id}}" tabindex="-1" role="dialog" aria-labelledby="{{modal_id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>{{modal_header}}</h3>
+                <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#{{modal_id}}"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-description text-center">{{modal_description}}</p>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button id="{{modal_confirm_button}}" class="btn btn-success" data-bs-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

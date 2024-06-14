@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Order
+{% endblock %}
+
+{% block content %}
+<!-- Display each burger in the order -->
+<script src="{{ url_for('static', filename='orderHandler.js') }}" defer></script>
+
+<style>
+  @media (max-width: 768px) {
+    .container {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  }
+</style>
+
+<div id="burger-container" class="container">
+  <!--confirm-modal: Clear order-->
+  {% with modal_id='clear-order-modal', modal_header='Clear order', modal_description='Are you sure? All the items you
+  currently have in your cart will be removed!', modal_confirm_button='clear-order-button' %}
+  {% include 'confirm-modal.html' %}
+  {% endwith %}
+
+  <!--confirm-modal: delete item from order-->
+  {% with modal_id='delete-item-modal', modal_header='Delete item', modal_description='Are you sure you want to remove the item from your order?', modal_confirm_button='del-item-button' %}
+  {% include 'confirm-modal.html' %}
+  {% endwith %}
+
+  <div class="row">
+    <div class="col-6">
+      <h1>Order</h1>
+    </div>
+    <div class="col-6" style="text-align: right;">
+      <button disabled class="btn btn-link" style="text-decoration: none;" data-bs-toggle="modal"
+        data-bs-target="#clear-order-modal"><b>Clear Order</b></button>
+    </div>
+  </div>
+  {% for order in orders %}
+  <div id="{{order.id}}" class="container mt-5">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <img src="{{order.image_url}}" alt="Product Image" class="product-image mr-3">
+        <div class="item-details flex-grow-1">
+          <a href="/burger/{{order.id}}" class="item-name mb-1"><b>{{ order.name }}</b></a>
+          <p class="item-price mb-0">${{ order.price }}</p>
+        </div>
+        <div class="quantity-controls">
+          <button id="substract-{{order.id}}" class="btn btn-outline-dark btn-sm"
+            onclick="updateOrder('substract', {{order.id}})"><i class="bi bi-dash"></i></button>
+          <span id="quantity-{{order.id}}" class="quantity mx-2">{{ order.amount }}</span>
+          <button class="btn btn-outline-dark btn-sm" onclick="updateOrder('add', {{order.id}})"><i
+              class="bi bi-plus-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="container" style="margin-top:20px;">
+    <div>
+      <h3>Total: <span class="float-end">$</span></h3>
+    </div>
+    <p>{{order}}</p>
+  </div>
+</div>
+<div id="order-buttons-container" class="container mb-5">
+  <div class="row justify-content-md-between justify-content-center">
+    <div class="col-8 col-md-auto">
+      <div class="d-flex justify-content-center">
+        <a href="/menu"><button class="order-button text-center mx-auto"><i class="bi bi-arrow-left-circle-fill"></i>
+            Keep
+            ordering</button></a>
+      </div>
+    </div>
+    <div class="col-9 col-sm-7 col-md-auto">
+      <div class="d-flex justify-content-center">
+        {% if orders %}
+        <a href="/checkout"><button style="background-color:#87CEEB;" class="order-button text-center mx-auto"><i
+              class="bi bi-cart-check-fill"></i> Proceed to Checkout</button></a>
+        {% else %}
+        <button style="background-color:#87CEEB;" class="order-button text-center mx-auto" disabled><i
+            class="bi bi-cart-check-fill"></i> Proceed to Checkout</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Item
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='adminHandler.js') }}" defer></script>
+<script src="{{ url_for('static', filename='toggleClass.js') }}" defer></script>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col col-md-8 col-checkout-item mx-auto rounded">
+            <h3 class="align-form-title mt-3">Edit Item</h3>
+            <form method="post" action="/admin-items/edit/{{item.id}}"  novalidate>
+                <div class="form-floating">
+                    <input class="form-control" type="text" id="name" name="name" placeholder="Item name" value="{{item.name}}" required>
+                    <label class="form-label" for="name">Item name</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" id="description" name="description" rows="4" cols="50" style="height:auto;">{{item.description}}</textarea>
+                    <label class="form-label" for="description">Item Description</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" type="number" step="any" id="price" name="price" placeholder="Item price" value="{{item.price}}" required>
+                    <label class="form-label" for="price">Item Price</label>
+                </div>
+                <div class="form-floating">
+                    <select class="form-select" id="category" name="category" aria-label="Item Category" required>
+                        {% for category in categories %}
+                        {% if category.id == item.categoryId%}
+                        <option selected value="{{category.category}}">{{category.category}}</option>
+                        {% else %}
+                        <option value="{{category.category}}">{{category.category}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label class="form-label" for="category">Item category</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" type="text" id="image-url" name="image-url" placeholder="Image URL" value="{{item.image_url}}" required>
+                    <label class="form-label" for="image-url">Image URL</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <a href="{{ url_for('admin_items') }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
